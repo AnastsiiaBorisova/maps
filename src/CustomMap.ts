@@ -1,12 +1,19 @@
-import { User } from './User';
-import { Company } from './Company';
+//Instructions to every other class
+//on how they can be an argumet to 'addMarker'
+
+interface Mappable {
+  location: {
+    lat: number;
+    lng: number;
+  };
+}
 
 export class CustomMap {
   private googleMap: google.maps.Map;
 
-  contstructor(divId: string) {
+  constructor(divId: string) {
     this.googleMap = new google.maps.Map(
-      document.getElementById('map') as HTMLElement,
+      document.getElementById(divId) as HTMLElement,
       {
         zoom: 1,
         center: {
@@ -17,22 +24,13 @@ export class CustomMap {
     );
   }
 
-  addUserMarker(user: User): void {
-    new google.maps.marker.AdvancedMarkerElement({
+  addMaker(mappable: Mappable): void {
+    mappable.location;
+    new google.maps.Marker({
       map: this.googleMap,
       position: {
-        lat: user.location.lat,
-        lng: user.location.lng,
-      },
-    });
-  }
-
-  addCompanyMarker(company: Company): void {
-    new google.maps.marker.AdvancedMarkerElement({
-      map: this.googleMap,
-      position: {
-        lat: company.location.lat,
-        lng: company.location.lng,
+        lat: mappable.location.lat,
+        lng: mappable.location.lng,
       },
     });
   }
